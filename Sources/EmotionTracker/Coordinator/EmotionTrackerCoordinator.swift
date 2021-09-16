@@ -2,25 +2,25 @@ import Routing
 import UIKit
 import SwiftUI
 
-public protocol EmotionTrackerCoordinatorProtocol: Coordinator {
+protocol EmotionTrackerCoordinatorProtocol: Coordinator {
     func showTrackerView()
     func showUpsertEmotion()
 }
 
 public final class EmotionTrackerCoordinator: EmotionTrackerCoordinatorProtocol {
-    var finishDelegate: CoordinatorFinishDelegate?
+    public var finishDelegate: CoordinatorFinishDelegate?
     
-    var navigationController: UINavigationController
+    public var navigationController: UINavigationController
     
-    var childCoordinators: [Coordinator] = []
+    public var childCoordinators: [Coordinator] = []
     
-    var type = "EmotionTracker"
+    public var type = "EmotionTracker"
     
-    func start() {
+    public func start() {
         showTrackerView()
     }
     
-    init(_ navigationController: UINavigationController) {
+    public init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
     }
     

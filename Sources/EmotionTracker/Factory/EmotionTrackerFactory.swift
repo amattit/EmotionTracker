@@ -10,7 +10,7 @@ import Routing
 import UIKit
 
 public final class EmotionTrackerFactory {
-    static func create(with navigationController: UINavigationController) -> Coordinator {
+    public static func create(with navigationController: UINavigationController) -> Coordinator {
         let coordinator = EmotionTrackerCoordinator(navigationController)
         let viewFactory = ViewFactory(coordinator: coordinator)
         coordinator.viewFactory = viewFactory

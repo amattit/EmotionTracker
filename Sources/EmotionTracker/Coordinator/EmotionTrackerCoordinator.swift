@@ -7,7 +7,7 @@ protocol EmotionTrackerCoordinatorProtocol: Coordinator {
     func showUpsertEmotion()
 }
 
-public final class EmotionTrackerCoordinator: EmotionTrackerCoordinatorProtocol {
+internal final class EmotionTrackerCoordinator: EmotionTrackerCoordinatorProtocol {
     public var finishDelegate: CoordinatorFinishDelegate?
     
     public var navigationController: UINavigationController
@@ -15,6 +15,8 @@ public final class EmotionTrackerCoordinator: EmotionTrackerCoordinatorProtocol 
     public var childCoordinators: [Coordinator] = []
     
     public var type = "EmotionTracker"
+    
+    internal var viewFactory: ViewFactory!
     
     public func start() {
         showTrackerView()
@@ -25,12 +27,14 @@ public final class EmotionTrackerCoordinator: EmotionTrackerCoordinatorProtocol 
     }
     
     func showTrackerView() {
-        let view = UIHostingController(rootView: EmotionTrackerView(viewModel: EmotionTrackerViewModel(coordinator: self)))
+        assert(viewFactory != nil, "setupViewController in Factory")
+        let view = viewFactory.createTrackerView()
         navigationController.pushViewController(view, animated: true)
     }
     
     func showUpsertEmotion() {
-        let view = UIHostingController(rootView: UpsertEmotionView(viewModel: UpsertEmotionViewModel(coordinator: self)))
+        assert(viewFactory != nil, "setupViewController in Factory")
+        let view = viewFactory.createUpsertView()
         navigationController.present(view, animated: true, completion: nil)
     }
     
